@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import { productRouter } from './routes/productRoutes.js';
-import { seedCollection } from './controllers/productController.js';
+import { seedCollection, getProducts } from './controllers/productController.js';
 
 dotenv.config();
 
@@ -33,6 +33,7 @@ app.use('/api/products', productRouter);
 
 // 2. Ruta inteligente por alumno/colección (/api/:coleccion/products)
 // Ej: VITE_API_URL=https://inventario-app-backend-intelligent.onrender.com/api/inventario-db-liam/
+app.get('/api/:coleccion', getProducts);
 app.get('/api/:coleccion/seed', seedCollection);
 app.post('/api/:coleccion/seed', seedCollection);
 app.use('/api/:coleccion/products', productRouter);
